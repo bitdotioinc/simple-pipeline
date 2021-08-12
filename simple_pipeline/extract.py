@@ -1,7 +1,6 @@
 """Provides extraction functions, currently only supports GET from URL."""
 
 import io
-import json
 
 import pandas as pd
 import requests
