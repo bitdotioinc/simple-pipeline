@@ -1,4 +1,7 @@
-"""Provides extraction functions, currently only supports GET from URL."""
+"""Provides extraction functions.
+
+Currently only supports GET from URL or local file.
+"""
 
 import io
 
