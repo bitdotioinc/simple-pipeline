@@ -1,4 +1,4 @@
-"""Provides extraction functions, currently only supports GET from URL."""
+"""Provides optional transform functions for different data sources."""
 
 import pandas as pd
 
