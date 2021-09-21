@@ -14,11 +14,9 @@ import load
 
 
 # Load credentials from .env file, if needed
-if os.getenv("PG_CONN_STRING"):
-    PG_CONN_STRING = os.getenv("PG_CONN_STRING")
-else:
+if not os.getenv('PG_CONN_STRING'):
     load_dotenv()
-    PG_CONN_STRING = os.getenv('PG_CONN_STRING')
+PG_CONN_STRING = os.getenv('PG_CONN_STRING')
 
 
 def main(src, dest, local_src, options):
