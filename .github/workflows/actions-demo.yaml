@@ -35,5 +35,5 @@ jobs:
         env: 
           PG_CONN_STRING: ${{ secrets.PG_CONN_STRING }}
         run: |
-             python simple_pipeline/sql_executor.py ca_covid_data.sql
+             python simple_pipeline/sql_executor.py simple_pipeline/ca_covid_data.sql
   
