@@ -2,7 +2,7 @@ name: Main Deploy
 on: 
   push: 
     branches:
-    - action-demo
+    - main
 jobs:
   extract-transform-load:
     runs-on: ubuntu-latest
