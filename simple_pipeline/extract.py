@@ -4,9 +4,13 @@ Currently only supports GET from URL or local file.
 """
 
 import io
+import logging
 
 import pandas as pd
 import requests
+
+
+logger = logging.getLogger(__name__)
 
 
 def csv_from_get_request(url):
