@@ -6,6 +6,8 @@ on:
 jobs:
   extract-transform-load:
     runs-on: ubuntu-latest
+    env: 
+      PG_CONN_STRING: ${{ secrets.PG_CONN_STRING }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -15,25 +17,26 @@ jobs:
           python-version: '3.7'
       - name: Install dependencies
         run: python -m pip install --upgrade pip -r requirements.txt
+      - name: ACS population by county
+        run: |
+             python main.py \
+             -local_source \
+             -name acs_population_counties \
+             simple_pipeline/acs_5yr_population_data.csv \
+             bitdotio/simple_pipeline.population_counties
       - name: NYT cases by county
-        env: 
-          PG_CONN_STRING: ${{ secrets.PG_CONN_STRING }}
         run: |
              python simple_pipeline/main.py \
              -name nyt_cases_counties \
              'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv' \
              action_tester/simple_pipeline.cases_counties
       - name: CDC vaccines by county
-        env: 
-          PG_CONN_STRING: ${{ secrets.PG_CONN_STRING }}
         run: |
              python simple_pipeline/main.py \
              -name cdc_vaccines_counties \
              'https://data.cdc.gov/api/views/8xkx-amqh/rows.csv?accessType=DOWNLOAD' \
              action_tester/simple_pipeline.vaccinations_counties
       - name: Create CA report table
-        env: 
-          PG_CONN_STRING: ${{ secrets.PG_CONN_STRING }}
         run: |
              python simple_pipeline/sql_executor.py simple_pipeline/ca_covid_data.sql
   
