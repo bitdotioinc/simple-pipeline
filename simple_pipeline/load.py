@@ -2,8 +2,12 @@
 
 import csv
 from io import StringIO
+import logging
 
 from sqlalchemy import create_engine
+
+
+logger = logging.getLogger(__name__)
 
 
 def _psql_insert_copy(table, conn, keys, data_iter):

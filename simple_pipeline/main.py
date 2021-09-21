@@ -3,6 +3,8 @@
 This example omits many best practices (e.g. logging, error handling,
 parameterizatin + config files, etc.) for the sake of a brief, minimal example.
 """
+
+import logging
 import os
 import sys
 
@@ -11,6 +13,14 @@ from dotenv import load_dotenv
 import extract
 import transform
 import load
+
+
+# Set up logging
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.INFO,
+    datefmt='%Y-%m-%d %H:%M:%S')
+logger = logging.getLogger(__name__)
 
 
 # Load credentials from .env file, if needed
@@ -38,6 +48,7 @@ def main(src, dest, local_src, options):
         Option - argument map from the user command.
     """
     # EXTRACT data
+    logger.info('Starting extract...')
     if local_src:
         df = extract.csv_from_local(src)
     else:
@@ -45,15 +56,21 @@ def main(src, dest, local_src, options):
     # TRANSFORM data
     if 'name' in options:
         if hasattr(transform, options['name']):
+            logger.info(f"Starting transform with {options['name']}...")
             df = getattr(transform, options['name'])(df)
         else:
             raise ValueError("Specified transformation name not found.")
+    else:
+        logger.info(f"No transformation specified, skipping to load step.")
     # LOAD data
+    logger.info(f"Loading data to bi.io...")
     load.to_table(df, dest, PG_CONN_STRING)
+    logger.info(f"Data loaded to bit.io.")
 
 
 if __name__ == '__main__':
     # Parse command line options and arguments
+    logger.info('Parsing command...')
     opts = [opt[1:] for opt in sys.argv[1:] if opt.startswith("-")]
     local_source = 'local_source' in opts
     opts = [opt for opt in opts if opt != 'local_source']
@@ -67,4 +84,5 @@ if __name__ == '__main__':
     option_args = dict(zip(opts, opt_args))
 
     # Execute ETL
+    logger.info('Starting ETL...')
     main(source, destination, local_source, option_args)
