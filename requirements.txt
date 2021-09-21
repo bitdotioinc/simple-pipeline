@@ -2,3 +2,4 @@ pandas
 psycopg2
 requests
 sqlalchemy
+python-dotenv

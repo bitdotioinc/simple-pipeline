@@ -17,7 +17,7 @@ jobs:
         run: python -m pip install --upgrade pip -r requirements.txt
       - name: NYT cases by county
         env: 
-          BITDOTIO_API_KEY: ${{ secrets.BITDOTIO_KEY }}
+          BITDOTIO_API_KEY: ${{ secrets.PG_CONN_STRING }}
         run: |
              python simple_pipeline/main.py \
              -name nyt_cases_counties \
@@ -25,7 +25,7 @@ jobs:
              action_tester/simple_pipeline.cases_counties
       - name: CDC vaccines by county
         env: 
-          BITDOTIO_API_KEY: ${{ secrets.BITDOTIO_KEY }}
+          BITDOTIO_API_KEY: ${{ secrets.PG_CONN_STRING }}
         run: |
              python simple_pipeline/main.py \
              -name cdc_vaccines_counties \
@@ -33,7 +33,7 @@ jobs:
              action_tester/simple_pipeline.vaccinations_counties
       - name: Create CA report table
         env: 
-          BITDOTIO_API_KEY: ${{ secrets.BITDOTIO_KEY }}
+          BITDOTIO_API_KEY: ${{ secrets.PG_CONN_STRING }}
         run: |
              python action_tester/sql_executor.py ca_covid_data.sql
   

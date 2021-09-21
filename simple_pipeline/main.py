@@ -13,9 +13,12 @@ import transform
 import load
 
 
-# Load credentials from ENV
-load_dotenv()
-PG_CONN_STRING = os.getenv('PG_CONN_STRING')
+# Load credentials from .env file, if needed
+if not os.getenv("PG_CONN_STRING"):
+    PG_CONN_STRING = os.getenv("PG_CONN_STRING")
+else:
+    load_dotenv()
+    PG_CONN_STRING = os.getenv('PG_CONN_STRING')
 
 
 def main(src, dest, local_src, options):
