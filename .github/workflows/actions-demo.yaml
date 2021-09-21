@@ -23,7 +23,7 @@ jobs:
              -local_source \
              -name acs_population_counties \
              simple_pipeline/acs_5yr_population_data.csv \
-             bitdotio/simple_pipeline.population_counties
+             action_tester/simple_pipeline.population_counties
       - name: NYT cases by county
         run: |
              python simple_pipeline/main.py \
