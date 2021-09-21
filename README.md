@@ -8,7 +8,7 @@ This repo is intended to provide a simple pipeline example for getting started w
 
 ## Setup
 
-- Add a .env file at the root with your own bit.io API key as `BITDOTIO_API_KEY`
+- Add a .env file at the root with your own bit.io Postgres connection string as `PG_CONN_STRING`
 - Create environment
     - `python3 -m venv venv`<br>
     - `source venv/bin/activate`<br>
