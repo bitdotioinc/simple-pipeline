@@ -10,16 +10,19 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
 
-# Load credentials from ENV
-load_dotenv()
+# Load credentials from .env file, if needed
+if not os.getenv('PG_CONN_STRING'):
+    load_dotenv()
 PG_CONN_STRING = os.getenv('PG_CONN_STRING')
 
 
-def main(script_path):
+def main(script_path, owner, repo):
     engine = create_engine(PG_CONN_STRING)
 
     with open(script_path, 'r') as f:
         sql = f.read()
+        sql = sql.replace('$OWNER', owner)
+        sql = sql.replace('$REPO', repo)
         commands = sql.split(';')
 
     with engine.connect() as conn:
@@ -32,9 +35,9 @@ if __name__ == '__main__':
     # Parse command line arguments
     args = [arg for arg in sys.argv[1:]]
     # Validation
-    if len(args) != 1:
-        raise ValueError("Only one argument (SQL script path) is permitted.")
-    script_path = args[0]
+    if len(args) != 3:
+        raise ValueError("Exactly three arguments (SQL script path, owner, and reponame) are required.")
+    script_path, owner, repo = args
 
     # Execute script
-    main(script_path)
+    main(script_path, owner, repo)
