@@ -22,7 +22,7 @@ jobs:
           python -m pip install --upgrade pip -r requirements.txt
           python -m pip install pytest
       - name: Run unit tests
-        run: pytest
+        run: python -m pytest
       - name: ACS population by county
         run: |
              python simple_pipeline/main.py \
