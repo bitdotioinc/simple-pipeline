@@ -20,7 +20,7 @@ def _fips_cleaner(code):
     ----------
     pandas.Series
     """
-    return code.astype(str).str.extract('(.*)\.', expand=False).str.zfill(5)
+    return code.astype(str).str.extract('(^[^/.]*).*', expand=False).str.zfill(5)
 
 
 def nyt_cases_counties(df):
