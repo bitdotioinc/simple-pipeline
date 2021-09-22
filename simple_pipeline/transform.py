@@ -27,8 +27,8 @@ def nyt_cases_counties(df):
     """Transforms NYT county-level COVID data"""
     # Cast date as datetime
     df['date'] = pd.to_datetime(df['date'])
-    # Drop records with county = 'Unknown'
-    df = df.loc[df['county'] != 'Unknown'].copy()
+    # Drop records with county = 'Unknown' or no FIPs code
+    df = df.loc[(df['county'] != 'Unknown') & (df['fips'].notnull())].copy()
     # Store FIPS codes as standard 5 digit strings
     df['fips'] = _fips_cleaner(df['fips'])
     # Drop FIPs that are not part of US states, cast deaths to int
