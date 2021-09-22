@@ -22,7 +22,7 @@ jobs:
           python -m pip install --upgrade pip -r requirements.txt
           python -m pip install pytest
       - name: Run unit tests
-        run: pytest
+        run: python -m pytest
       - name: ACS population by county
         run: |
              python simple_pipeline/main.py \
@@ -45,5 +45,8 @@ jobs:
              $BITDOTIO_USER/$BITDOTIO_REPO.vaccinations_counties
       - name: Create CA report table
         run: |
-             python simple_pipeline/sql_executor.py simple_pipeline/ca_covid_data.sql
+             python simple_pipeline/sql_executor.py \
+             simple_pipeline/ca_covid_data.sql \
+             $BITDOTIO_USER \
+             $BITDOTIO_REPO
   

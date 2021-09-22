@@ -76,7 +76,7 @@ def main(src, dest, local_src, validate_data, options):
     else:
         logger.info(f"No data validation specified, skipping to load step.")
     # LOAD data
-    logger.info(f"Loading data to bi.io...")
+    logger.info(f"Loading data to bit.io...")
     load.to_table(df, dest, PG_CONN_STRING)
     logger.info(f"Data loaded to bit.io.")
 

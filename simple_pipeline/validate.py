@@ -38,6 +38,11 @@ def unique_records(df):
     return df[['date', 'fips']].drop_duplicates().shape[0] == df.shape[0]
 
 
+def no_nulls_test(df):
+    """Checks that all elements are not null"""
+    return df.isnull().values.sum() == 0
+
+
 def range_test(series, min, max):
     """Checks that all values in a series are within a range, inclusive"""
     return (series >= min).all() and (series <= max).all() 
@@ -50,13 +55,14 @@ def cases_range_test(df):
 
 def deaths_range_test(df):
     """Checks that all deaths are non-negative and <= 100K"""
-    return range_test(df['deaths'], 0, 1e5)  
+    return range_test(df['deaths'], 0, 1e5)
 
 
 # Data test for NYT covid cases and deaths
 nyt_cases_counties = [
     (cases_vs_deaths, "Death counts cannot exceed case counts."),
     (unique_records, "Only one record per FIPs, per date allowed."),
-    (cases_range_test, "Cases must be non-negative and <= 10M"),
-    (deaths_range_test, "Deaths must be non-negative and <= 100K")
+    (no_nulls_test, "All values are expected to be non-null."),
+    (cases_range_test, "Cases must be non-negative and <= 10M."),
+    (deaths_range_test, "Deaths must be non-negative and <= 100K.")
 ]
