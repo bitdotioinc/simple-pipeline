@@ -2,7 +2,7 @@ name: Main Deploy
 on: 
   push: 
     branches:
-    - main
+    - main2 # purposefully deactivating for demo
 jobs:
   extract-transform-load:
     runs-on: ubuntu-latest
