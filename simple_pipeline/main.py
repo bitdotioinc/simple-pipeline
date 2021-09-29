@@ -70,7 +70,8 @@ def main(src, dest, local_src, validate_data, options):
         if hasattr(validate, options['name']):
             logger.info(f"Starting data validation with {options['name']}...")
             tests = getattr(validate, options['name'])
-            assert validate.test_data(df, tests), 'Data validation failed, terminating ETL.'
+            if not validate.test_data(df, tests):
+                raise Exception('Data validation failed, terminating ETL.')
         else:
             raise ValueError("Specified test suite not found.")
     else:
