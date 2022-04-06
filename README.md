@@ -1,10 +1,10 @@
 # bit.io simple pipeline
 
-A simple bit.io pipeline example using scripts and the UNIX cron scheduler. 
+A simple bit.io pipeline example using scripts and the UNIX cron scheduler.
 
 ## Scope
 
-This repo is intended to provide a simple pipeline example for getting started with programmtic data ingestion and updates in bit.io. To keep the repo simple, many best practices such as logging, configuration files, and a more robust orchestration/scheduling framework are omitted. 
+This repo is intended to provide a simple pipeline example for getting started with programmtic data ingestion and updates in bit.io. To keep the repo simple, many best practices such as logging, configuration files, and a more robust orchestration/scheduling framework are omitted.
 
 ## Setup
 
@@ -61,5 +61,4 @@ The transformation functions are defined in `transform.py`. If you want to run t
 
 Once data has been extracted, transformed, and loaded, we sometimes want to create derived tables within the database. This script takes one argument, a path to a SQL script to run on bit.io. For example, to create the derived California COVID data table, the script is called as follows:
 
-`python sql_executor.py ca_covid_data.sql`
-
+`python sql_executor.py ca_covid_data.sql bitdotio simple_pipeline`
